@@ -2,6 +2,26 @@ packages:
   cargo:
     - du-dust
     - mise
+  pkg:
+    packages:
+      - bat
+      # INFO: duf is in testing repositories as 2024-08-05
+      # - duf
+      - eza
+      - fd
+      - fzf
+      - build-base
+      - git
+      - neovim
+      - openssl
+      - openssl-dev
+      - ripgrep
+      - sd
+      - starship
+      - tmux
+      - tree-sitter-cli
+      - zoxide
+      - zsh
   dnf:
     copr:
       - atim/starship

@@ -9,7 +9,18 @@ echo -e "${C_DODGERBLUE1}Installing packages...${NO_FORMAT}"
 {{- if eq .osid "darwin" }}
 # macOS-specific code
 {{- else if eq .osid "linux-debian" }}
+
 # Debian-specific code
+
+{{- else if eq .osid "linux-alpine" }}
+
+  # ╭─────────────────────────────────────────────────────────╮
+  # │                  Install PKG Packages                   │
+  # ╰─────────────────────────────────────────────────────────╯
+
+
+  sudo apk add {{ range .packages.pkg.packages }} {{ . | quote }} {{- end -}}
+
 {{- else if eq .osid "linux-fedora" }}
 
   # ╭──────────────────────────────────────────────────────────╮
