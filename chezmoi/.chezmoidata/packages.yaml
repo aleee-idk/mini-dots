@@ -1,7 +1,4 @@
 packages:
-  cargo:
-    - du-dust
-    - mise
   pkg:
     packages:
       - bat
@@ -10,11 +7,10 @@ packages:
       - eza
       - fd
       - fzf
-      - build-base
+      - dust
       - git
       - neovim
       - openssl
-      - openssl-dev
       - ripgrep
       - sd
       - starship

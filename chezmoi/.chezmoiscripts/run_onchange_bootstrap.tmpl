@@ -40,18 +40,3 @@ echo -e "${C_DODGERBLUE1}Installing packages...${NO_FORMAT}"
   sudo dnf install -y {{ range .packages.dnf.packages }} {{ . | quote }} {{- end -}}
 
 {{ end }}
-
-# ╭──────────────────────────────────────────────────────────╮
-# │                       Install Rust                       │
-# ╰──────────────────────────────────────────────────────────╯
-
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --default-toolchain stable
-
-. "$HOME/.cargo/env"
-
-# ╭──────────────────────────────────────────────────────────╮
-# │                  Install Cargo Packages                  │
-# ╰──────────────────────────────────────────────────────────╯
-
-cargo install {{ range .packages.cargo }} {{ . | quote }} {{- end -}}
-
