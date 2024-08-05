@@ -1,0 +1,142 @@
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                        ZSH Config                        │
+#  ╰──────────────────────────────────────────────────────────╯
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                      Preoload stuff                      │
+#  ╰──────────────────────────────────────────────────────────╯
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
+
+# Source/Load zinit, installation is handle by chezmoi external script
+source "${ZINIT_HOME}/zinit.zsh"
+
+# source catppuccin theme for zsh-syntax-highlighting
+zinit snippet "https://raw.githubusercontent.com/catppuccin/zsh-syntax-highlighting/main/themes/catppuccin_macchiato-zsh-syntax-highlighting.zsh"
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                       ZSH plugins                        │
+#  ╰──────────────────────────────────────────────────────────╯
+
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                    Oh My Zsh snippets                    │
+#  ╰──────────────────────────────────────────────────────────╯
+zinit ice as"completion"; zinit snippet "https://raw.githubusercontent.com/sharkdp/fd/master/contrib/completion/_fd"
+zinit ice as"completion"; zinit snippet OMZP::gh
+
+# svn is deprecated, zinit is working in replacing in favor of git: https://github.com/zdharma-continuum/zinit/issues/504
+# In the meantime, this plugins will not work
+# zinit ice svn; zinit snippet OMZ::plugins/aliases
+# zinit ice svn; zinit snippet OMZ::plugins/rust
+
+zinit snippet OMZP::alias-finder
+zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::dnf
+zinit snippet OMZP::docker
+zinit snippet OMZP::docker-compose
+zinit snippet OMZP::git
+zinit snippet OMZP::systemd
+
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                     Plugins options                      │
+#  ╰──────────────────────────────────────────────────────────╯
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                     Load completions                     │
+#  ╰──────────────────────────────────────────────────────────╯
+# Custom completions
+fpath+=${XDG_CONFIG_HOME:-$HOME/.config}/zsh/completions
+autoload -Uz ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/completions/*
+
+autoload -Uz compinit && compinit
+zinit cdreplay -q
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                       Keybindings                        │
+#  ╰──────────────────────────────────────────────────────────╯
+bindkey -e
+bindkey '^f' auto-suggest-accept
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
+
+# Set VIM keybindings
+bindkey -v
+export KEYTIMEOUT=1
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd V edit-command-line # Edits files in vim, hit Shift+v in normal mode
+
+# Add vim text objects
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+    bindkey -M $km -- '-' vi-up-line-or-history
+    for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+        bindkey -M $km $c select-quoted
+    done
+    for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+        bindkey -M $km $c select-bracketed
+    done
+done
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                         History                          │
+#  ╰──────────────────────────────────────────────────────────╯
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                    Completion styling                    │
+#  ╰──────────────────────────────────────────────────────────╯
+# case insensitive completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                       ZSH Options                        │
+#  ╰──────────────────────────────────────────────────────────╯
+setopt EXTENDED_GLOB
+setopt DOT_GLOB
+setopt GLOB_DOTS
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                    Source other files                    │
+#  ╰──────────────────────────────────────────────────────────╯
+source $HOME/.config/fzf/fzfrc
+
+# this prevents errors and not loading some files
+for file in $HOME/.config/zsh/**/*.zsh; do
+    source $file
+done
+
+#  ╭──────────────────────────────────────────────────────────╮
+#  │                  Init external programs                  │
+#  ╰──────────────────────────────────────────────────────────╯
+eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
+eval "$(starship init zsh)"
+eval "$(mise activate zsh)"

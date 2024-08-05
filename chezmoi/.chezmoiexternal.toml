@@ -1,0 +1,16 @@
+[".local/share/zinit"]
+    type = "git-repo"
+    url = "https://github.com/zdharma-continuum/zinit.git"
+    refreshPeriod = "168h"
+
+[".config/bat/themes/Catppuccin-macchiato.tmTheme"]
+    # Run "bat cache --build" to make the theme available
+    type = "file"
+    url = "https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Macchiato.tmTheme"
+    refreshPeriod = "168h"
+
+[".local/bin/sesh"]
+    type = "archive-file"
+    url = "https://github.com/joshmedeski/sesh/releases/latest/download/sesh_Linux_x86_64.tar.gz"
+    path = "sesh"
+    refreshPeriod = "168h"

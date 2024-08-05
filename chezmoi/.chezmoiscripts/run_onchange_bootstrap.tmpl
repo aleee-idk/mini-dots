@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+set -e
+
+NO_FORMAT="\033[0m"
+C_DODGERBLUE1="\033[38;5;33m"
+echo -e "${C_DODGERBLUE1}Installing packages...${NO_FORMAT}"
+
+{{- if eq .osid "darwin" }}
+# macOS-specific code
+{{- else if eq .osid "linux-debian" }}
+# Debian-specific code
+{{- else if eq .osid "linux-fedora" }}
+
+  # ╭──────────────────────────────────────────────────────────╮
+  # │                      Add COPR repos                      │
+  # ╰──────────────────────────────────────────────────────────╯
+
+  sudo dnf install -yq 'dnf-command(copr)'
+
+  {{ range .packages.dnf.copr -}}
+    sudo dnf copr enable -y {{ . | quote }} &> /dev/null
+  {{ end -}}
+
+  # ╭──────────────────────────────────────────────────────────╮
+  # │                   Install DNF packages                   │
+  # ╰──────────────────────────────────────────────────────────╯
+
+  sudo dnf install -y {{ range .packages.dnf.packages }} {{ . | quote }} {{- end -}}
+
+{{ end }}
+
+# ╭──────────────────────────────────────────────────────────╮
+# │                       Install Rust                       │
+# ╰──────────────────────────────────────────────────────────╯
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path --default-toolchain stable
+
+rustup update
+
+# ╭──────────────────────────────────────────────────────────╮
+# │                  Install Cargo Packages                  │
+# ╰──────────────────────────────────────────────────────────╯
+
+cargo install {{ range .packages.cargo }} {{ . | quote }} {{- end -}}
+

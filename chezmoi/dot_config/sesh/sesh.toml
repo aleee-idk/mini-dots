@@ -1,0 +1,14 @@
+[[session]]
+name = "Downloads"
+path = "~/Downloads"
+startup_command = "ls"
+
+[[session]]
+name = "Dotfiles"
+path = "~/.local/share/chezmoi/"
+startup_command = "nvim -c ':Telescope find_files'"
+
+[[session]]
+name = "SSH"
+path = "~/.ssh/"
+startup_command = "nvim config"

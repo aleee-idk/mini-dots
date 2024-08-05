@@ -1,0 +1,7 @@
+[user]
+	name = aleidk
+	email = ale.navarro.parra@gmail.com
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main

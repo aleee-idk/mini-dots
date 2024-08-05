@@ -1,0 +1,6 @@
+# Git Worktrees
+.worktrees/*
+
+# PHP Stuff
+vendor
+.php-cs-fixer.cache

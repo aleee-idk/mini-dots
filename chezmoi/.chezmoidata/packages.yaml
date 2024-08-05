@@ -1,0 +1,27 @@
+packages:
+  cargo:
+    - du-dust
+    - mise
+  dnf:
+    copr:
+      - atim/starship
+    packages:
+      - bat
+      - dnf-plugin-system-upgrade
+      - duf
+      - eza
+      - fd-find
+      - fzf
+      - gcc
+      - gcc-c++
+      - git
+      - neovim
+      - openssl
+      - openssl-devel
+      - ripgrep
+      - sd
+      - starship
+      - tmux
+      - tree-sitter-cli
+      - zoxide
+      - zsh

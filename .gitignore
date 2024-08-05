@@ -1,0 +1,18 @@
+# Config
+**/packer_compiled.lua
+config/spicetify/Extracted
+config/vifm/Trash
+config/vifm/vifminfo.json
+config/lazygit/state.yml
+config/mpv/shaders
+config/tmux/plugins/*
+!config/tmux/plugins/.gitkeep
+
+
+config/spicetify/Backup
+# nixos/hardware-configuration.nix
+result
+config/ncspot/userstate.cbor
+config/zsh/zprofile.local
+config/spicetify/CustomApps/*
+chezmoi/dot_config/zsh/aliases/work.zsh

@@ -1,0 +1,32 @@
+#!/usr/bin/zsh
+
+update_path() {
+	export PATH="$PATH:$1"
+}
+
+# Set manually
+export DOTS="$(dirname $(chezmoi source-path))"
+export EDITOR=nvim
+export VISUAL="$EDITOR"
+
+# Dev Stuff
+export NPM_PACKAGES="$HOME/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export ESLINT_USE_FLAT_CONFIG=true
+. "$HOME/.cargo/env"
+
+# Unset manpath so we can inherit from /etc/manpath via the `manpath`
+# command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+# PATH
+update_path "/usr/local/bin"
+update_path "$HOME/.local/bin"
+update_path "$HOME/.cargo/bin/"
+update_path "$DOTS/scripts"
+update_path "$HOME/bin"
+update_path "$NPM_PACKAGES/bin"
+update_path "$PNPM_HOME"
+update_path "$HOME/.local/share/rtx/shims"
