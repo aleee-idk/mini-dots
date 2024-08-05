@@ -73,9 +73,6 @@ symbol = "gcp "
 [git_branch]
 symbol = "git "
 
-[gleam]
-symbol = "gleam "
-
 [golang]
 symbol = "go "
 
@@ -108,9 +105,6 @@ symbol = "memory "
 
 [meson]
 symbol = "meson "
-
-[nats]
-symbol = "nats "
 
 [nim]
 symbol = "nim "
