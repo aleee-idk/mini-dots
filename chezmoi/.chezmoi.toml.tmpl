@@ -5,3 +5,4 @@
 
 [data]
     osid = {{ $osid | quote }}
+    persistent = {{ promptBoolOnce . "persistent" "keep chezmoi?" true }}

@@ -1,2 +1,6 @@
-{{ .chezmoi.sourceDir }}/dot_config/nvim/original_lazy-lock.json
+{{ if .persistent }}
+  {{ .chezmoi.sourceDir }}/dot_config/nvim/original_lazy-lock.json
+{{ else }}
+  {{ .chezmoi.homeDir }}/.config/nvim/original_lazy-lock.json
+{{ end }}
 
