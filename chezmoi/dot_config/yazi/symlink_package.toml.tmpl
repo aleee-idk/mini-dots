@@ -1,2 +1,6 @@
-{{ .chezmoi.sourceDir }}/dot_config/yazi/original_package.toml
+{{ if .persistent }}
+  {{ .chezmoi.sourceDir }}/dot_config/yazi/original_package.toml
+{{ else }}
+  {{ .chezmoi.homeDir }}/.config/yazi/original_package.toml
+{{ end }}
 

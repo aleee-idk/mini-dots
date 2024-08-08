@@ -46,16 +46,9 @@ return {
 				miniclue.gen_clues.windows(),
 				miniclue.gen_clues.z(),
 
-				{ mode = "n", keys = "<Leader><Leader>",  desc = "+Bookmarks" },
-				{ mode = "n", keys = "<Leader><Leader>n", postkeys = "<Leader><Leader>" },
-				{ mode = "n", keys = "<Leader><Leader>N", postkeys = "<Leader><Leader>" },
-				{ mode = "n", keys = "<Leader>b",         desc = "+Buffers" },
-				{ mode = "n", keys = "<Leader>f",         desc = "+Find" },
-				{ mode = "n", keys = "<Leader>g",         desc = "+Git" },
-				{ mode = "n", keys = "<Leader>l",         desc = "+LSP" },
-				{ mode = "n", keys = "<Leader>r",         desc = "+Replace" },
-				{ mode = "n", keys = "<Leader>u",         desc = "+UI & Config" },
-				{ mode = "n", keys = "<Leader>un",        desc = "+Noice" },
+				{ mode = "n", keys = "<Leader><Leader>", desc = "+Bookmarks" },
+				{ mode = "n", keys = "<Leader>b",        desc = "+Buffers" },
+				{ mode = "n", keys = "<Leader>f",        desc = "+Find" },
 			},
 
 			-- Clue window settings
