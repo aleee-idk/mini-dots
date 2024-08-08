@@ -17,7 +17,7 @@ echo -e "${C_DODGERBLUE1}Installing packages...${NO_FORMAT}"
   # ╰─────────────────────────────────────────────────────────╯
 
 
-  sudo apk add {{ range .packages.pkg.packages }} {{ . | quote }} {{- end -}}
+  doas apk add {{ range .packages.pkg.packages }} {{ . | quote }} {{- end -}}
 
 {{- else if eq .osid "linux-fedora" }}
 
